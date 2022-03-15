@@ -1,0 +1,61 @@
+@forward "tipografia";
+@use "../abstracts/abstracts" as a;
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: 0.2s linear;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: a.$blanco;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: a.$negro;
+  }
+}
+
+section {
+  padding: 5rem 9%;
+}
+
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  border: a.$borde;
+  color: a.$negro;
+  cursor: pointer;
+  background: none;
+  font-size: 1.7rem;
+  padding: 1rem 3rem;
+  margin: 1rem auto;
+
+  &:hover {
+    background: a.$negro;
+    color: a.$blanco;
+  }
+}
+
+.encabezado {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 4rem;
+  color: a.$negro;
+}

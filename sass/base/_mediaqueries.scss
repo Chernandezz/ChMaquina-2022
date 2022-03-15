@@ -1,0 +1,94 @@
+@use "../abstracts/abstracts" as *;
+
+// Media Queries
+@media (max-width: 1200px) {
+  // Header
+  .header {
+    padding: 2rem;
+  }
+
+  section {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+    scroll-padding-bottom: 7rem;
+  }
+
+  .inicio .caja {
+    padding: 2rem;
+    justify-content: center;
+    background-position: right !important;
+    align-items: center;
+
+    &.segunda {
+      justify-content: center;
+      background-position: left !important;
+    }
+
+    .contenido {
+      text-align: center;
+
+      span {
+        font-size: 3rem;
+      }
+      h3 {
+        font-size: 4rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  // Header
+  .header {
+    #btn-menu {
+      display: inline-block;
+    }
+    .navegacion {
+      position: fixed;
+      top: 0;
+      left: -110%;
+      background: $blanco;
+      z-index: 1000;
+      width: 35rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &.activo {
+        left: 0;
+        box-shadow: 0 0 0 100vw rgb(0, 0, 0, 0.8);
+      }
+      a {
+        margin: 1rem 0;
+        font-size: 3rem;
+      }
+
+      #cerrar-nav {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+      }
+    }
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+  .encabezado {
+    font-size: 3rem;
+  }
+}
