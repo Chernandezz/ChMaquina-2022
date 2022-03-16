@@ -15,23 +15,76 @@
     />
 
     <!-- Link Css -->
-    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <!-- Inicio Header -->
 
     <div class="header">
-      <a href="/" class="logo"> <i class="fa-solid fa-car"></i> Parqueadero </a>
-
+      <a href="/" class="logo"
+        ><i class="fa-solid fa-desktop"></i> CHMAQUINA
+      </a>
       <div class="iconos">
-        <a href="/ingresar" class="boton">
-          <i class="fa-solid fa-plus"></i>Ingresar Vehiculo</a
-        >
-
-        <div id="btn-buscar" class="fas fa-search"></div>
+        <button class="boton" id="button">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <button class="boton ejecutar">
+          <i class="fa-solid fa-play"></i>Ejecutar
+        </button>
+        <button class="boton detener">
+          <i class="fa-solid fa-stop"></i>Detener
+        </button>
+        <button class="boton cargar">
+          <i class="fa-solid fa-download"></i>Cargar
+        </button>
       </div>
     </div>
     <!-- Fin Header -->
-    <section class="fondo"></section>
+    <section class="fondo">
+      <div class="contenido">
+        <div class="seccionSalidas">
+          <div class="formato">
+            <h2 class="titulo">Variables</h2>
+            <textarea></textarea>
+          </div>
+          <div class="formato">
+            <h2 class="titulo">etiquetas</h2>
+            <textarea></textarea>
+          </div>
+        </div>
+        <div class="seccionSalidas">
+          <div class="formato">
+            <h2 class="titulo">pantalla</h2>
+            <textarea></textarea>
+          </div>
+          <div class="formato">
+            <h2 class="titulo">impresora</h2>
+            <textarea></textarea>
+          </div>
+        </div>
+        <div class="seccionSalidas mem">
+            <h2 class="titulo">Memoria</h2>
+            <textarea class="memoria"></textarea>
+        </div>
+      </div>
+      <!-- Modal Section -->
+      <div class="bg-modal">
+        <div class="modal-contents">
+          <div class="close">+</div>
+          <div class="datos">
+            <div class="valores">
+              <label>Memoria</label>
+              <input type="number" name="" id="" min="1" value="100">
+            </div>
+            <div class="valores">
+              
+              <label>Kernel</label>
+              <input type="number" name="" id="" min="1" value="10">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
