@@ -26,8 +26,10 @@ input.addEventListener("change", () => {
   reader.onload = (e) => {
     const file = e.target.result;
     const lines = file.split(/\r\n|\n/);
-    console.log(lines);
     for (let index = 0; index < lines.length; index++) {
+      if (lines[index] == "") {
+        continue;
+      }
       let contemem = document.createElement("div");
       let tag = document.createElement("div");
       let text = document.createTextNode(index);
