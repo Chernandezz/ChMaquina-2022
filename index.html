@@ -34,9 +34,12 @@
         <button class="boton detener">
           <i class="fa-solid fa-stop"></i>Detener
         </button>
-        <button class="boton cargar">
+        <label for="upload" class="boton cargar">
           <i class="fa-solid fa-download"></i>Cargar
-        </button>
+          <input type="file" id="upload" style="display:none" accept=".ch">
+        </label>
+        <!-- <button class="boton cargar" type="file">
+        </button> -->
       </div>
     </div>
     <!-- Fin Header -->
@@ -62,9 +65,10 @@
             <textarea></textarea>
           </div>
         </div>
-        <div class="seccionSalidas mem">
-            <h2 class="titulo">Memoria</h2>
-            <textarea class="memoria"></textarea>
+        <div class="seccionSalidas">
+          <h2 class="titulo">Memoria</h2>
+          <div class="mem" id="mem">
+          </div>
         </div>
       </div>
       <!-- Modal Section -->
