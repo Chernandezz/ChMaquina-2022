@@ -25,7 +25,10 @@
         ><i class="fa-solid fa-desktop"></i> CHMAQUINA
       </a>
       <div class="iconos">
-        <button class="boton" id="button">
+        <button class="boton">
+          <i class="fa-solid fa-arrow-rotate-right" onclick="recargar()"></i>
+        </button>
+        <button class="boton" id="config">
           <i class="fa-solid fa-gear"></i>
         </button>
         <button class="boton ejecutar">
@@ -68,6 +71,8 @@
         <div class="seccionSalidas">
           <h2 class="titulo">Memoria</h2>
           <div class="mem" id="mem">
+            <div class="linea flex-col" id="linea"></div>
+            <div class="codigo flex-col" id="codigo"></div>
           </div>
         </div>
       </div>
@@ -78,12 +83,12 @@
           <div class="datos">
             <div class="valores">
               <label>Memoria</label>
-              <input type="number" name="" id="" min="1" value="100">
+              <input type="number" name="" id="tammemoria" min="1" value="100" onchange="actualizarValorMemoria()">
             </div>
             <div class="valores">
               
               <label>Kernel</label>
-              <input type="number" name="" id="" min="1" value="10">
+              <input type="number" name="" id="tamkernel" min="1" value="10" onchange="actualizarValorKernel()">
             </div>
           </div>
         </div>

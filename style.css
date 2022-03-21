@@ -118,20 +118,27 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   overflow-y: scroll;
   padding: 1rem;
-  flex-direction: column;
   height: 100%;
   border: 1px solid #10221b;
   width: 25rem;
 }
-.contenido .mem .contemem {
-  display: flex;
-  gap: 1rem;
+.contenido .mem .linea {
+  width: 4rem;
+}
+.contenido .mem .codigo {
+  width: 20rem;
 }
 .contenido .mem::-webkit-scrollbar {
   width: 0;
   /* Remove scrollbar space */
   background: transparent;
   /* Optional: just make scrollbar invisible */
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .titulo {
@@ -180,6 +187,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .header .iconos .boton:hover {
   transform: scale(1.1);
+}
+.header .iconos .boton.desactivado {
+  opacity: 0.3;
 }
 .header .iconos .cargar {
   background-color: #e8c23e;
