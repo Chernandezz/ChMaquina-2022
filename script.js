@@ -1,3 +1,5 @@
+// ------------------------------- FRONT -------------------------------
+
 //Comandos Para Manejar el Modal
 document.getElementById("config").addEventListener("click", function () {
   document.querySelector(".bg-modal").style.display = "flex";
@@ -44,8 +46,9 @@ input.addEventListener("change", () => {
         lines.splice(index, 1);
       }
     }
+    console.log(lines);
     cont += lines.length;
-    if (cont > tammemoria) {
+    if (cont > tammemoria - tamkernel) {
       alert("ERROR, Memoria Insuficiente");
       return;
     }
@@ -88,6 +91,7 @@ input.addEventListener("change", () => {
       }
 
       let tag = document.createElement("div");
+      tag.classList.add("lineacode");
       let text = document.createTextNode(lines[index]);
       tag.appendChild(text);
       codigo.appendChild(tag);
@@ -111,3 +115,5 @@ function actualizarValorMemoria() {
 function recargar() {
   document.location.reload();
 }
+
+// ------------------------------- BACK -------------------------------
