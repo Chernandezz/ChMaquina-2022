@@ -7,16 +7,23 @@ document.querySelector(".close").addEventListener("click", function () {
   document.querySelector(".bg-modal").style.display = "none";
 });
 
-// Carga de archivos
+// Creacion del vector de memoria principal
+arreglo = new Array(7100);
 
+// Variables Usadas
 let input = document.getElementById("upload");
 let textarea = document.getElementById("memoria");
 let linea = document.getElementById("linea");
 let codigo = document.getElementById("codigo");
-let contaaa = document.querySelectorAll(".lineacode");
+let iconoLinea = document.getElementById("iconoLinea");
 let cont = 0;
 let memoriaDefinida = false;
 
+// Valores Kernel y Memoria
+let tamkernel = document.getElementById("tamkernel").value;
+let tammemoria = document.getElementById("tammemoria").value;
+
+// EvenListener del boton de carga de archivos
 input.addEventListener("change", () => {
   document.getElementById("config").disabled = true;
   document.getElementById("config").classList.add("desactivado");
@@ -38,8 +45,6 @@ input.addEventListener("change", () => {
       }
     }
     cont += lines.length;
-    console.log(cont);
-    console.log(tammemoria);
     if (cont > tammemoria) {
       alert("ERROR, Memoria Insuficiente");
       return;
@@ -52,16 +57,37 @@ input.addEventListener("change", () => {
         linea.appendChild(tag);
         memoriaDefinida = true;
       }
+      for (let index = 0; index < tamkernel; index++) {
+        let tag = document.createElement("div");
+        let tagi = document.createElement("i");
+        tagi.classList.add("fa-brands");
+        tagi.classList.add("fa-bitbucket");
+        tag.appendChild(tagi);
+        iconoLinea.appendChild(tag);
+      }
+      for (let index = 0; index < tammemoria - tamkernel; index++) {
+        let tag = document.createElement("div");
+        let tagi = document.createElement("i");
+        tagi.classList.add("fa-solid");
+        tagi.classList.add("fa-align-justify");
+        tag.appendChild(tagi);
+        iconoLinea.appendChild(tag);
+      }
+    }
+
+    for (let index = 0; index < tamkernel; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode("--- KERNEL ---");
+      tag.appendChild(text);
+      codigo.appendChild(tag);
     }
 
     for (let index = 0; index < lines.length; index++) {
-      contaaa = document.querySelectorAll(".lineacode");
       if (lines[index] == "") {
         continue;
       }
 
       let tag = document.createElement("div");
-      tag.classList.add("lineacode");
       let text = document.createTextNode(lines[index]);
       tag.appendChild(text);
       codigo.appendChild(tag);
@@ -73,10 +99,6 @@ input.addEventListener("change", () => {
   reader.readAsText(file);
 });
 
-// Valores Kernel y Memoria
-let tamkernel = document.getElementById("tamkernel").value;
-let tammemoria = document.getElementById("tammemoria").value;
-
 function actualizarValorKernel() {
   tamkernel = document.getElementById("tamkernel").value;
 }
@@ -85,6 +107,7 @@ function actualizarValorMemoria() {
   tammemoria = document.getElementById("tammemoria").value;
 }
 
+// Funcion para recargar la pagina
 function recargar() {
   document.location.reload();
 }

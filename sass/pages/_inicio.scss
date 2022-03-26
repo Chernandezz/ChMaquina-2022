@@ -116,6 +116,7 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
   .mem {
+    gap: 1rem;
     scrollbar-width: none;
     display: flex;
     overflow-y: scroll;
@@ -125,6 +126,10 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 25rem;
     .linea {
       width: 4rem;
+    }
+    .iconoLinea {
+      width: 2rem;
+      color: #29c239;
     }
     .codigo {
       width: 20rem;
