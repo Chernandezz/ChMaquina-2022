@@ -106,7 +106,7 @@ input[type="number"]::-webkit-outer-spin-button {
       display: flex;
       align-items: center;
       flex-direction: column;
-      textarea {
+      .salida {
         border: $borde;
         padding: 1rem;
         height: 19rem;
@@ -120,12 +120,13 @@ input[type="number"]::-webkit-outer-spin-button {
     scrollbar-width: none;
     display: flex;
     overflow-y: scroll;
+    overflow-x: scroll;
     padding: 1rem;
     height: 100%;
     border: $borde;
     width: 25rem;
     .linea {
-      width: 4rem;
+      width: 2rem;
     }
     .iconoLinea {
       width: 2rem;
@@ -134,9 +135,17 @@ input[type="number"]::-webkit-outer-spin-button {
     .codigo {
       width: 20rem;
     }
+    .lineacode {
+      white-space: nowrap;
+    }
     &::-webkit-scrollbar {
-      width: 0; /* Remove scrollbar space */
-      background: transparent; /* Optional: just make scrollbar invisible */
+      height: 1rem;
+      width: 0;
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb:horizontal {
+      background: #013e72;
+      border-radius: 0.3rem;
     }
   }
 }
@@ -144,6 +153,9 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.aling-center {
+  align-items: center;
 }
 .titulo {
   font-size: 2rem;
