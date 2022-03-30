@@ -24,9 +24,17 @@ arreglo = new Array(7100);
 let input = document.getElementById("upload");
 let ejecutar = document.getElementById("ejecutar");
 let textarea = document.getElementById("memoria");
+
+// Salidas Memorias
 let linea = document.getElementById("linea");
 let codigo = document.getElementById("codigo");
 let iconoLinea = document.getElementById("iconoLinea");
+
+// Salidas Variables
+let varnombre = document.getElementById("varnombre");
+let vartipo = document.getElementById("vartipo");
+let varvalor = document.getElementById("varvalor");
+
 let cont = 0;
 let memoriaDefinida = false;
 let lines = [];
@@ -114,6 +122,7 @@ input.addEventListener("change", () => {
         tag.appendChild(text);
         codigo.appendChild(tag);
       }
+
       // Confirmacion de que ya se mostraron los numeros de linea con los iconos
       memoriaDefinida = true;
     }
@@ -129,6 +138,29 @@ input.addEventListener("change", () => {
       let text = document.createTextNode(lines[index]);
       tag.appendChild(text);
       codigo.appendChild(tag);
+    }
+
+    // Salida Variables
+    varnombre.innerHTML = "";
+    vartipo.innerHTML = "";
+    varvalor.innerHTML = "";
+    for (let index = 0; index < listavariables.length; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode(listavariables[index][0]);
+      tag.appendChild(text);
+      varnombre.appendChild(tag);
+    }
+    for (let index = 0; index < listavariables.length; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode(listavariables[index][1]);
+      tag.appendChild(text);
+      vartipo.appendChild(tag);
+    }
+    for (let index = 0; index < listavariables.length; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode(listavariables[index][2]);
+      tag.appendChild(text);
+      varvalor.appendChild(tag);
     }
   };
 
