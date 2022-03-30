@@ -39,7 +39,7 @@
         </button>
         <label for="upload" class="boton cargar">
           <i class="fa-solid fa-download"></i>Cargar
-          <input type="file" id="upload" style="display:none" accept=".ch">
+          <input type="file" id="upload" style="display: none" accept=".ch" />
         </label>
         <!-- <button class="boton cargar" type="file">
         </button> -->
@@ -77,24 +77,53 @@
           </div>
         </div>
       </div>
-      <!-- Modal Section -->
+      <!-- Modal Section configuracion -->
       <div class="bg-modal">
         <div class="modal-contents">
           <div class="close">+</div>
           <div class="datos">
             <div class="valores">
               <label>Memoria</label>
-              <input type="number" name="" id="tammemoria" min="1" value="100" onchange="actualizarValorMemoria()">
+              <input
+                type="number"
+                name=""
+                id="tammemoria"
+                min="1"
+                value="100"
+                onchange="actualizarValorMemoria()"
+              />
             </div>
             <div class="valores">
-              
               <label>Kernel</label>
-              <input type="number" name="" id="tamkernel" min="1" value="10" onchange="actualizarValorKernel()">
+              <input
+                type="number"
+                name=""
+                id="tamkernel"
+                min="1"
+                value="10"
+                onchange="actualizarValorKernel()"
+              />
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      <!-- End Modal Section -->
+
+      <!-- Modal Section Error -->
+      <div class="bg-modal" id="modalErrores">
+        <div class="modal-contents">
+          <div class="close" id="cerrarModalErrores">+</div>
+          <div class="datos">
+            <h2>
+              El Programa Cargado Contiene
+              <span id="cantErrores">3</span> Errores, Corriga los errores y
+              carguelo nuevamente
+            </h2>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Section -->
+    </section>
     <script src="script.js"></script>
   </body>
 </html>

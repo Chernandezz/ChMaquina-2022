@@ -9,6 +9,14 @@ document.querySelector(".close").addEventListener("click", function () {
   document.querySelector(".bg-modal").style.display = "none";
 });
 
+// Modal Errores
+let popuperrores = document.getElementById("modalErrores");
+let cerrarModalErrores = document.getElementById("cerrarModalErrores");
+
+cerrarModalErrores.addEventListener("click", function () {
+  popuperrores.style.display = "none";
+});
+
 // Creacion del vector de memoria principal
 arreglo = new Array(7100);
 
@@ -23,6 +31,8 @@ let cont = 0;
 let memoriaDefinida = false;
 let lines = [];
 let memoriaprincipal = [];
+let errores = 0;
+let listavariables = [];
 
 // Valores Kernel y Memoria
 let tamkernel = document.getElementById("tamkernel").value;
@@ -53,11 +63,21 @@ input.addEventListener("change", () => {
         lines.splice(index, 1);
       }
     }
+
     cont += lines.length;
     if (cont > tammemoria - tamkernel) {
       alert("ERROR, Memoria Insuficiente");
       return;
     }
+    // Funcion que se encarga de revisar que no hayan errores en el codigo
+    revisorSintaxis(lines);
+    if (errores != 0) {
+      document.getElementById("cantErrores").innerHTML = errores;
+      popuperrores.style.display = "flex";
+      return;
+    }
+
+    // Cuando ya no hay problemas de tam de memoria se carga en memoria principal
     memoriaprincipal.push(lines);
     if (!memoriaDefinida) {
       // Salida de numero de lineas
@@ -87,16 +107,15 @@ input.addEventListener("change", () => {
         tag.appendChild(tagi);
         iconoLinea.appendChild(tag);
       }
-      // Confitmacion de que ya se mostraron los numeros de linea con los iconos
+      // Salida de la linea --kernel--
+      for (let index = 0; index < tamkernel; index++) {
+        let tag = document.createElement("div");
+        let text = document.createTextNode("--- KERNEL ---");
+        tag.appendChild(text);
+        codigo.appendChild(tag);
+      }
+      // Confirmacion de que ya se mostraron los numeros de linea con los iconos
       memoriaDefinida = true;
-    }
-
-    // Salida de la linea --kernel--
-    for (let index = 0; index < tamkernel; index++) {
-      let tag = document.createElement("div");
-      let text = document.createTextNode("--- KERNEL ---");
-      tag.appendChild(text);
-      codigo.appendChild(tag);
     }
 
     // Salida de cada linea de codigo en el array lines
@@ -120,7 +139,7 @@ input.addEventListener("change", () => {
 
 ejecutar.addEventListener("click", () => {
   lines.forEach((element) => {
-    console.log(element);
+    // console.log(element);
   });
 });
 
@@ -140,3 +159,74 @@ function recargar() {
 }
 
 // ------------------------------- BACK -------------------------------
+
+// Funcion encargada de revisar sintaxis
+function revisorSintaxis(lines) {
+  lines.forEach((element, index) => {
+    let comando = element.split(" ");
+    // Comando Para eliminar espacios vacios
+    comando = comando.filter((e) => String(e).trim());
+    let lavariable = [];
+
+    switch (comando[0]) {
+      case "nueva":
+        // Error de Tamaño
+        verificarTamInstruccion(comando.length, 4, 3, index);
+        // Verificacion de no repetir nombres de variables
+        verificarNombreVar(comando, index);
+        // Error de tipo de Variable
+        if (
+          comando[2] != "C" &&
+          comando[2] != "I" &&
+          comando[2] != "R" &&
+          comando[2] != "L"
+        ) {
+          error();
+        }
+        // Asignacion de valores por defecto
+        if (comando.length == 3) {
+          if (comando[2] == "C") {
+            comando.push(" ");
+          }
+          if (comando[2] == "I" || comando[2] == "R") {
+            comando.push("1");
+          }
+          if (comando[2] == "L") {
+            comando.push("0");
+          }
+        }
+        // Guardarlo en forma de M-triz
+        lavariable.push(comando[1]);
+        lavariable.push(comando[2]);
+        lavariable.push(comando[3]);
+        listavariables.push(lavariable);
+        // Guardarlo en forma de vector
+        // listavariables.push(comando[1]);
+        // listavariables.push(comando[2]);
+        // listavariables.push(comando[3]);
+        break;
+    }
+  });
+}
+
+// Funciones Para Errores
+
+// Verificar que no hayan nombres de varibales repetidas
+function verificarNombreVar(comando) {
+  for (let i = 0; i < listavariables.length; i++) {
+    if (listavariables[i].includes(comando[1])) {
+      error();
+    }
+  }
+}
+
+// Verificar tam instruccion
+function verificarTamInstruccion(tam, max, min) {
+  if (tam > max || tam < min) {
+    error();
+  }
+}
+// Ingresar linea del error en arreglo
+function error() {
+  errores += 1;
+}
