@@ -1,4 +1,7 @@
 // ------------------------------- FRONT -------------------------------
+({
+  plugins: ["jsdom-quokka-plugin"],
+});
 
 //Comandos Para Manejar el Modal
 document.getElementById("config").addEventListener("click", function () {
@@ -71,17 +74,18 @@ input.addEventListener("change", () => {
         lines.splice(index, 1);
       }
     }
-
-    cont += lines.length;
-    if (cont > tammemoria - tamkernel) {
-      alert("ERROR, Memoria Insuficiente");
-      return;
-    }
     // Funcion que se encarga de revisar que no hayan errores en el codigo
+    errores = 0;
     revisorSintaxis(lines);
     if (errores != 0) {
       document.getElementById("cantErrores").innerHTML = errores;
       popuperrores.style.display = "flex";
+      return;
+    }
+
+    cont += lines.length;
+    if (cont > tammemoria - tamkernel) {
+      alert("ERROR, Memoria Insuficiente");
       return;
     }
 
@@ -194,19 +198,39 @@ function recargar() {
 
 // Funcion encargada de revisar sintaxis
 function revisorSintaxis(lines) {
+  cargavariables(lines);
+  lines.forEach((element) => {
+    let comando = element.split(" ");
+    // Comando Para eliminar espacios vacios
+    comando = comando.filter((e) => String(e).trim());
+    switch (comando[0]) {
+      case "cargue":
+        verificarTamInstruccion(comando.length, 2, 2);
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            document.getElementById("valorAcumulador").innerHTML = element[2];
+          }
+        });
+
+        break;
+    }
+  });
+}
+
+function cargavariables(lines) {
   lines.forEach((element, index) => {
     let comando = element.split(" ");
     // Comando Para eliminar espacios vacios
     comando = comando.filter((e) => String(e).trim());
     let lavariable = [];
-
-    switch (comando[0]) {
-      case "nueva":
-        // Error de Tamaño
-        verificarTamInstruccion(comando.length, 4, 3, index);
-        // Verificacion de no repetir nombres de variables
-        verificarNombreVar(comando, index);
-        // Error de tipo de Variable
+    let varExiste = false;
+    if (comando[0] == "nueva") {
+      // Error de Tamaño
+      verificarTamInstruccion(comando.length, 4, 3);
+      // Verificacion de no repetir nombres de variables
+      varExiste = verificarNombreVar(comando);
+      // Error de tipo de Variable
+      if (!varExiste) {
         if (
           comando[2] != "C" &&
           comando[2] != "I" &&
@@ -232,11 +256,12 @@ function revisorSintaxis(lines) {
         lavariable.push(comando[2]);
         lavariable.push(comando[3]);
         listavariables.push(lavariable);
-        // Guardarlo en forma de vector
-        // listavariables.push(comando[1]);
-        // listavariables.push(comando[2]);
-        // listavariables.push(comando[3]);
-        break;
+      }
+
+      // Guardarlo en forma de vector
+      // listavariables.push(comando[1]);
+      // listavariables.push(comando[2]);
+      // listavariables.push(comando[3]);
     }
   });
 }
@@ -248,6 +273,7 @@ function verificarNombreVar(comando) {
   for (let i = 0; i < listavariables.length; i++) {
     if (listavariables[i].includes(comando[1])) {
       error();
+      return true;
     }
   }
 }
