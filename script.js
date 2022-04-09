@@ -206,6 +206,9 @@ function revisorSintaxis(lines) {
     switch (comando[0]) {
       case "cargue":
         verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
         listavariables.forEach((element) => {
           if (element[0] == comando[1]) {
             document.getElementById("valorAcumulador").innerHTML = element[2];

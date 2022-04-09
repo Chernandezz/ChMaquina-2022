@@ -128,6 +128,7 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: column;
 }
 .contenido .seccionSalidas .formato .salida {
+  scrollbar-width: none;
   overflow-y: scroll;
   overflow-x: scroll;
   display: flex;
