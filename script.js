@@ -44,6 +44,7 @@ let lines = [];
 let memoriaprincipal = [];
 let errores = 0;
 let listavariables = [];
+let valacu = 0;
 
 // Valores Kernel y Memoria
 let tamkernel = document.getElementById("tamkernel").value;
@@ -214,7 +215,83 @@ function revisorSintaxis(lines) {
             document.getElementById("valorAcumulador").innerHTML = element[2];
           }
         });
+        break;
 
+      case "almacene":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            element[2] = document.getElementById("valorAcumulador").innerHTML;
+            console.log(element);
+          }
+        });
+        break;
+
+      case "sume":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            valacu += parseInt(element[2]);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
+
+      case "reste":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            valacu -= parseInt(element[2]);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
+
+      case "multiplique":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            valacu *= parseInt(element[2]);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
+
+      case "divida":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            valacu /= parseInt(element[2]);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
         break;
     }
   });
