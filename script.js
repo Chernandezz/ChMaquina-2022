@@ -293,6 +293,40 @@ function revisorSintaxis(lines) {
           }
         });
         break;
+
+      case "potencia":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            console.log(valacu);
+            valacu = Math.pow(valacu, parseInt(element[2]));
+            console.log(valacu);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
+
+      case "modulo":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            valacu = parseInt(
+              document.getElementById("valorAcumulador").innerHTML
+            );
+            valacu = valacu % parseInt(element[2]);
+            document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
     }
   });
 }
