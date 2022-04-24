@@ -4,7 +4,7 @@ nueva papa I 4
 nueva cinco I 2
 nueva uno I 14
 cargue papa
-cargue uva
-cargue uno
-modulo papa
+muestre uno
+muestre papa
+imprima uva
 

@@ -31,6 +31,8 @@ let textarea = document.getElementById("memoria");
 // Salidas Memorias
 let linea = document.getElementById("linea");
 let codigo = document.getElementById("codigo");
+let pantalla = document.getElementById("pantalla");
+let impresora = document.getElementById("impresora");
 let iconoLinea = document.getElementById("iconoLinea");
 
 // Salidas Variables
@@ -324,6 +326,36 @@ function revisorSintaxis(lines) {
             );
             valacu = valacu % parseInt(element[2]);
             document.getElementById("valorAcumulador").innerHTML = valacu;
+          }
+        });
+        break;
+
+      case "muestre":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            let tag = document.createElement("div");
+            let text = document.createTextNode(element[2]);
+            tag.appendChild(text);
+            pantalla.appendChild(tag);
+          }
+        });
+        break;
+
+      case "imprima":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            let tag = document.createElement("div");
+            let text = document.createTextNode(element[2]);
+            tag.appendChild(text);
+            impresora.appendChild(tag);
           }
         });
         break;
