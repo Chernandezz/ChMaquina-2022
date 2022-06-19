@@ -42,12 +42,17 @@ let varnombre = document.getElementById("varnombre");
 let vartipo = document.getElementById("vartipo");
 let varvalor = document.getElementById("varvalor");
 
+// Salida Etiquetas
+let lineaEtiqueta = document.getElementById("lineaEtiqueta");
+let nombreEtiqueta = document.getElementById("nombreEtiqueta");
+
 let cont = 0;
 let memoriaDefinida = false;
 let lines = [];
 let memoriaprincipal = [];
 let errores = 0;
 let listavariables = [];
+let listaEtiquetas = [];
 let valacu = 0;
 let progCargados = 0;
 
@@ -191,6 +196,22 @@ ejecutar.addEventListener("click", () => {
       tag.appendChild(text);
       varvalor.appendChild(tag);
     }
+
+    // Salida Etiquetas
+    lineaEtiqueta.innerHTML = "";
+    nombreEtiqueta.innerHTML = "";
+    for (let index = 0; index < listaEtiquetas.length; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode(listaEtiquetas[index][0]);
+      tag.appendChild(text);
+      lineaEtiqueta.appendChild(tag);
+    }
+    for (let index = 0; index < listaEtiquetas.length; index++) {
+      let tag = document.createElement("div");
+      let text = document.createTextNode(listaEtiquetas[index][1]);
+      tag.appendChild(text);
+      nombreEtiqueta.appendChild(tag);
+    }
   };
 
   reader.onerror = (e) => alert(e.target.error.name);
@@ -224,6 +245,7 @@ function recargar() {
 // Funcion encargada de revisar sintaxis
 function revisorSintaxis(lines) {
   cargavariables(lines);
+  cargarEtiquetas(lines);
   lines.forEach((element) => {
     let comando = element.split(" ");
     // Comando Para eliminar espacios vacios
@@ -385,6 +407,33 @@ function revisorSintaxis(lines) {
   });
 }
 
+// En la listaEtiquetas el primer valor es el nombre, segundo la linea realitiva
+// Contando el kernel y el tercer es la linea real
+function cargarEtiquetas(lines) {
+  lines.forEach((element) => {
+    let comando = element.split(" ");
+    // Comando Para eliminar espacios vacios
+    comando = comando.filter((e) => String(e).trim());
+    let laEtiqueta = [];
+    let etExiste = false;
+    if (comando[0] == "etiqueta") {
+      // Error de Tamaño
+      verificarTamInstruccion(comando.length, 3, 3);
+      // Verificacion de no repetir nombres de variables
+      etExiste = verificarNombreEt(comando);
+      // Error de tipo de Variable
+      if (!etExiste) {
+        // Asignacion de valores por defecto
+        // Guardarlo en forma de M-triz
+        laEtiqueta.push(comando[1]);
+        laEtiqueta.push(parseInt(comando[2]) + parseInt(tamkernel));
+        laEtiqueta.push(comando[2]);
+        listaEtiquetas.push(laEtiqueta);
+      }
+    }
+  });
+}
+
 function cargavariables(lines) {
   lines.forEach((element) => {
     let comando = element.split(" ");
@@ -479,6 +528,16 @@ function cargavariables(lines) {
 function verificarNombreVar(comando) {
   for (let i = 0; i < listavariables.length; i++) {
     if (listavariables[i].includes(comando[1])) {
+      error();
+      return true;
+    }
+  }
+}
+
+// Verificar que no hayan nombres de etiquetas repetidas
+function verificarNombreEt(comando) {
+  for (let i = 0; i < listaEtiquetas.length; i++) {
+    if (listaEtiquetas[i].includes(comando[1])) {
       error();
       return true;
     }
