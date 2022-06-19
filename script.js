@@ -31,6 +31,8 @@ let textarea = document.getElementById("memoria");
 // Salidas Memorias
 let linea = document.getElementById("linea");
 let codigo = document.getElementById("codigo");
+let lineaProgCargado = document.getElementById("lineaProgCargado");
+let programasMemoria = document.getElementById("programasMemoria");
 let pantalla = document.getElementById("pantalla");
 let impresora = document.getElementById("impresora");
 let iconoLinea = document.getElementById("iconoLinea");
@@ -47,25 +49,45 @@ let memoriaprincipal = [];
 let errores = 0;
 let listavariables = [];
 let valacu = 0;
+let progCargados = 0;
 
 // Valores Kernel y Memoria
 let tamkernel = document.getElementById("tamkernel").value;
 let tammemoria = document.getElementById("tammemoria").value;
 
-// EvenListener del boton de carga de archivos
 input.addEventListener("change", () => {
+  var files = input.files;
+  if (files.length == 0) return;
+  var reader = new FileReader();
+  progCargados++;
+  let tag = document.createElement("div");
+  let text = document.createTextNode(progCargados);
+  tag.appendChild(text);
+  lineaProgCargado.appendChild(tag);
+
+  for (let index = 0; index < files.length; index++) {
+    let tag = document.createElement("div");
+    tag.classList.add("lineacode");
+    let text = document.createTextNode(files[index]["name"]);
+    tag.appendChild(text);
+    programasMemoria.appendChild(tag);
+  }
+});
+
+// EvenListener del boton de carga de archivos
+ejecutar.addEventListener("click", () => {
   // Se desabilita el poder cambiar memoria y kernel
   document.getElementById("config").disabled = true;
   document.getElementById("config").classList.add("desactivado");
 
-  let files = input.files;
+  var files = input.files;
 
   // Validacion para Ver si el usuario cargo algo
   if (files.length == 0) return;
 
   const file = files[0];
 
-  let reader = new FileReader();
+  var reader = new FileReader();
 
   reader.onload = (e) => {
     // Entrada del archivo cargado
@@ -364,7 +386,7 @@ function revisorSintaxis(lines) {
 }
 
 function cargavariables(lines) {
-  lines.forEach((element, index) => {
+  lines.forEach((element) => {
     let comando = element.split(" ");
     // Comando Para eliminar espacios vacios
     comando = comando.filter((e) => String(e).trim());
@@ -403,11 +425,50 @@ function cargavariables(lines) {
         lavariable.push(comando[3]);
         listavariables.push(lavariable);
       }
-
       // Guardarlo en forma de vector
       // listavariables.push(comando[1]);
       // listavariables.push(comando[2]);
       // listavariables.push(comando[3]);
+    }
+    if (comando[0] == "lea") {
+      // Error de Tamaño
+      verificarTamInstruccion(comando.length, 4, 3);
+      // Verificacion de no repetir nombres de variables
+      varExiste = verificarNombreVar(comando);
+      if (!varExiste) {
+        if (
+          comando[2] != "C" &&
+          comando[2] != "I" &&
+          comando[2] != "R" &&
+          comando[2] != "L"
+        ) {
+          error();
+        }
+
+        // Guardarlo en forma de M-triz
+        $varInput = window.prompt(
+          "Ingrese el valor de la variable " + comando[1] + ": "
+        );
+        lavariable.push(comando[1]);
+        lavariable.push(comando[2]);
+        if ($varInput == "") {
+          // Asignacion de valores por defecto
+          if (comando.length == 3) {
+            if (comando[2] == "C") {
+              lavariable.push(" ");
+            }
+            if (comando[2] == "I" || comando[2] == "R") {
+              lavariable.push("1");
+            }
+            if (comando[2] == "L") {
+              lavariable.push("0");
+            }
+          }
+        } else {
+          lavariable.push($varInput);
+        }
+        listavariables.push(lavariable);
+      }
     }
   });
 }
