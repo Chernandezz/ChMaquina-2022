@@ -403,6 +403,23 @@ function revisorSintaxis(lines) {
           }
         });
         break;
+
+      case "promedio":
+        verificarTamInstruccion(comando.length, 2, 2);
+        if (errores > 0) {,
+          return;
+        }
+        listavariables.forEach((element) => {
+          if (element[0] == comando[1]) {
+            let tag = document.createElement("div");
+            let text = document.createTextNode(
+              (parseInt(element[2]) + parseInt(valacu)) / 2
+            );
+            tag.appendChild(text);
+            pantalla.appendChild(tag);
+          }
+        });
+        break;
     }
   });
 }
