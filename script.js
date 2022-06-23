@@ -406,7 +406,7 @@ function revisorSintaxis(lines) {
 
       case "promedio":
         verificarTamInstruccion(comando.length, 2, 2);
-        if (errores > 0) {,
+        if (errores > 0) {
           return;
         }
         listavariables.forEach((element) => {
